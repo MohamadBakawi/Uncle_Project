@@ -1,0 +1,342 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OmniTrade | Decentralized Distribution & Retail Media</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    /* Un-crammed Vertical Shell Layout */
+    body {
+      display: flex;
+      flex-direction: row;
+      min-height: 100vh;
+      background-color: #0b0f19;
+      color: #f8fafc;
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+    }
+
+    /* Vertical Sidebar Menu */
+    .sidebar-nav {
+      width: 280px;
+      min-width: 280px;
+      background: #0f172a;
+      border-right: 1px solid #1e293b;
+      display: flex;
+      flex-direction: column;
+      padding: 24px 16px;
+      gap: 24px;
+      height: 100vh;
+      position: sticky;
+      top: 0;
+      box-sizing: border-box;
+    }
+    .sidebar-brand {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      padding: 0 8px;
+    }
+    .sidebar-brand .brand-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #f8fafc;
+      letter-spacing: -0.02em;
+    }
+    .sidebar-brand .brand-subtitle {
+      font-size: 0.75rem;
+      color: #64748b;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* Vertical Menu Buttons */
+    .vertical-menu {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      flex: 1;
+    }
+    .vertical-menu .nav-btn {
+      width: 100%;
+      text-align: left;
+      padding: 12px 14px;
+      background: transparent;
+      border: 1px solid transparent;
+      border-radius: 8px;
+      color: #94a3b8;
+      font-size: 0.88rem;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      transition: all 0.15s ease;
+    }
+    .vertical-menu .nav-btn:hover {
+      background: #1e293b;
+      color: #f8fafc;
+    }
+    .vertical-menu .nav-btn.active {
+      background: #1e293b;
+      border-color: #3b82f6;
+      color: #fff;
+    }
+    .nav-btn .step-tag {
+      font-size: 0.7rem;
+      color: #38bdf8;
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 600;
+    }
+
+    /* Main Content Canvas (Vertical Flow) */
+    .content-area {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      overflow-y: auto;
+    }
+
+    /* Top Walkthrough Tour Bar */
+    .tour-bar {
+      background: #181b34 !important;
+      border-bottom: 1px solid #2e3267 !important;
+      padding: 12px 32px !important;
+    }
+
+    /* Vertical Summary Guide (Single Column) */
+    .vertical-primer {
+      background: #0d1424;
+      border-bottom: 1px solid #1e293b;
+      padding: 24px 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .vertical-primer-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .vertical-primer-header h2 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #f8fafc;
+      margin: 0;
+    }
+    .primer-toggle {
+      background: #1e293b;
+      border: 1px solid #334155;
+      color: #94a3b8;
+      font-size: 0.75rem;
+      padding: 4px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .primer-steps {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .primer-step-item {
+      background: #131c2e;
+      border: 1px solid #1e293b;
+      border-radius: 8px;
+      padding: 12px 16px;
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+    }
+    .primer-step-item .step-num {
+      background: #1e293b;
+      border: 1px solid #334155;
+      color: #38bdf8;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 4px;
+      white-space: nowrap;
+    }
+    .primer-step-item strong {
+      font-size: 0.85rem;
+      color: #f1f5f9;
+      display: block;
+      margin-bottom: 2px;
+    }
+    .primer-step-item p {
+      font-size: 0.8rem;
+      color: #94a3b8;
+      margin: 0;
+      line-height: 1.4;
+    }
+
+    /* Active Perspective Indicator */
+    .role-indicator-bar {
+      background: #0f172a;
+      border-bottom: 1px solid #1e293b;
+      padding: 10px 32px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.82rem;
+    }
+    .role-tag {
+      background: #1e293b;
+      border: 1px solid #3b82f6;
+      color: #60a5fa;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      font-weight: 600;
+    }
+
+    /* Force all squeezed horizontal cards into generous vertical stacks */
+    .app-container {
+      max-width: 1040px !important;
+      margin: 0 auto !important;
+      padding: 32px !important;
+      width: 100% !important;
+    }
+    .grid-2, .grid-3, .grid-4 {
+      display: flex !important;
+      flex-direction: column !important;
+      gap: 24px !important;
+    }
+    .card {
+      margin-bottom: 24px !important;
+      padding: 24px !important;
+      background: #111827 !important;
+      border: 1px solid #1e293b !important;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Left-Hand Vertical Navigation Menu -->
+  <aside class="sidebar-nav">
+    <div class="sidebar-brand">
+      <span class="brand-title">OmniTrade</span>
+      <span class="brand-subtitle">Hyperlocal Network</span>
+    </div>
+
+    <nav class="vertical-menu" id="nav-tabs">
+      <button class="nav-btn active" data-view="b2b-portal" data-role="PRODUCER & BUYER" data-desc="Direct product catalog submission and client purchase pickup orders.">
+        <span class="step-tag">[VIEW 1]</span>
+        <span>Producer & Catalog</span>
+      </button>
+
+      <button class="nav-btn" data-view="erp-hub" data-role="PLATFORM OPERATOR" data-desc="Master multi-node inventory matrix, mesh topology, and settlement ledger.">
+        <span class="step-tag">[VIEW 2]</span>
+        <span>Central ERP & Mesh</span>
+      </button>
+
+      <button class="nav-btn" data-view="shop-terminal" data-role="PARTNER SHOPKEEPER" data-desc="Zero-cost consignment intake, customer PIN release, and in-store TV ad displays.">
+        <span class="step-tag">[VIEW 3]</span>
+        <span>Partner Shop & Ad TV</span>
+      </button>
+
+      <button class="nav-btn" data-view="fleet-hub" data-role="DELIVERY DRIVER" data-desc="Short-hop van runs executing direct local deliveries out of neighborhood shops.">
+        <span class="step-tag">[VIEW 4]</span>
+        <span>Van Fleet Logistics</span>
+      </button>
+    </nav>
+
+    <div>
+      <button id="btn-seed-reset" class="btn-secondary-outline" style="width: 100%; text-align: center;">
+        Reset Database
+      </button>
+    </div>
+  </aside>
+
+  <!-- Main Display Area (Vertical Stack) -->
+  <div class="content-area">
+
+    <!-- Guided Demo Tour Strip -->
+    <header id="tour-bar" class="tour-bar"></header>
+
+    <!-- Vertical Summary Guide (How the 3 Sides Connect) -->
+    <section class="vertical-primer" id="vertical-primer">
+      <div class="vertical-primer-header">
+        <h2>System Model Overview</h2>
+        <button class="primer-toggle" id="primer-toggle-btn">Hide Guide</button>
+      </div>
+      <div class="primer-steps" id="primer-steps">
+        <div class="primer-step-item">
+          <span class="step-num">SIDE 1</span>
+          <div>
+            <strong>Big Producer (Wholesale Inbound)</strong>
+            <p>Drops bulk cargo into neighborhood shops on consignment. Cuts out dedicated field salesman travel and bypasses central warehouse dispatch bottlenecks.</p>
+          </div>
+        </div>
+
+        <div class="primer-step-item">
+          <span class="step-num">SIDE 2</span>
+          <div>
+            <strong>Partner Corner Shops (Holding Nodes & Ad Media)</strong>
+            <p>Independent shops hold stock in back with zero upfront inventory purchase. Digital screens at the checkout monetize walking consumers with brand ads.</p>
+          </div>
+        </div>
+
+        <div class="primer-step-item">
+          <span class="step-num">SIDE 3</span>
+          <div>
+            <strong>Business Buyers (Unified Storefront)</strong>
+            <p>Commercial clients order online through OmniTrade and pick up locally in 5 minutes via PIN code or receive short-hop van delivery.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Context Indicator Bar -->
+    <div class="role-indicator-bar">
+      <span class="role-tag" id="current-role-badge">PRODUCER & BUYER</span>
+      <span id="current-role-desc" style="color: #94a3b8;">Direct product catalog submission and client purchase pickup orders.</span>
+    </div>
+
+    <!-- Active View Panels -->
+    <main id="app-container" class="app-container">
+      <section id="view-b2b-portal" class="view-panel active"></section>
+      <section id="view-erp-hub" class="view-panel"></section>
+      <section id="view-shop-terminal" class="view-panel"></section>
+      <section id="view-fleet-hub" class="view-panel"></section>
+    </main>
+  </div>
+
+  <!-- Notification & Modal Containers -->
+  <div id="modal-container" class="modal-backdrop hidden"></div>
+  <div id="toast-container" class="toast-container"></div>
+
+  <!-- Perspective Sync & Main Bootstrap Script -->
+  <script type="module">
+    // Sync active role banner with vertical nav clicks
+    document.querySelectorAll('.nav-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const role = btn.getAttribute('data-role');
+        const desc = btn.getAttribute('data-desc');
+        if (role && desc) {
+          document.getElementById('current-role-badge').innerText = role;
+          document.getElementById('current-role-desc').innerText = desc;
+        }
+      });
+    });
+
+    // Toggle Summary Guide
+    const toggleBtn = document.getElementById('primer-toggle-btn');
+    const primerSteps = document.getElementById('primer-steps');
+    toggleBtn.addEventListener('click', () => {
+      const isHidden = primerSteps.style.display === 'none';
+      primerSteps.style.display = isHidden ? 'flex' : 'none';
+      toggleBtn.innerText = isHidden ? 'Hide Guide' : 'Show Guide';
+    });
+  </script>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
