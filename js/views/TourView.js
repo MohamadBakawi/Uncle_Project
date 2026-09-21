@@ -37,4 +37,4 @@ export class TourView {
       this.onNextStep();
     });
   }
-}
+} 
